@@ -5,11 +5,14 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     public Transform movePoint;
+    public Transform startPoint;
     public LayerMask whatAllowsMovement;
 
     void Start()
     {
         movePoint.parent = null;
+        playerToStart();
+        startPoint.GetComponent<Renderer>().enabled = false;
     }
     void Update()
     {
@@ -35,5 +38,10 @@ public class PlayerController : MonoBehaviour
                     movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
             }
         }
+    }
+    public void playerToStart()
+    {
+        transform.position = startPoint.position;
+        movePoint.position = startPoint.position;
     }
 }
