@@ -17,4 +17,6 @@ public class GameManagerScript : MonoBehaviour
     public GameObject startPoint;
     public GameObject Goal;
 
+
+
 }

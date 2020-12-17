@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Destructable : MonoBehaviour
@@ -10,12 +11,28 @@ public class Destructable : MonoBehaviour
     public Tilemap destructableTilemap;
     public Tile baseTile;
     public bool atGoal = false;
-
     private string currentTile;
+
+    public BoundsInt area;
+    public int blocksBefore;
+    public int blocksAfter;
+    private bool atEnd = false;
+
 
     private void Start()
     {
         destructableTilemap = GetComponent<Tilemap>();
+
+        TileBase[] tileArray = destructableTilemap.GetTilesBlock(area);
+        for (int index = 0; index < tileArray.Length; index++)
+        {
+            if (tileArray[index] != null)
+            {
+                blocksBefore++;
+            }
+        }
+        blocksBefore -= 1;
+        print(blocksBefore);
     }
 
     private void LateUpdate()
@@ -58,7 +75,21 @@ public class Destructable : MonoBehaviour
         }
         else
         {
-            Debug.Log("At Goal!");
+            if (!atEnd)
+            {
+                TileBase[] tileArray = destructableTilemap.GetTilesBlock(area);
+                for (int index = 0; index < tileArray.Length; index++)
+                {
+                    if (tileArray[index] != null)
+                    {
+                        blocksAfter++;
+                    }
+                }
+                blocksAfter -= 1;
+                print(blocksAfter);
+                atEnd = true;
+                Debug.Log("At Goal!");
+            }
         }
     }
 }
