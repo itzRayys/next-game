@@ -7,8 +7,9 @@ using System;
 
 public class TimerScript : MonoBehaviour
 {
+    [HideInInspector]
     public float startTime;
-    [SerializeField] TextMeshProUGUI timerText1;
+    public TextMeshProUGUI timerText1;
 
     private float timer;
 
@@ -30,13 +31,17 @@ public class TimerScript : MonoBehaviour
 
     private void FormatText1()
     {
+        if (timer > 0)
+        {
+            int minutes = (int)(timer / 60) % 60;
+            float seconds = (float)(timer % 60);
 
-        int minutes = (int)(timer / 60) % 60;
-        float seconds = (float)(timer % 60);
-
-        timerText1.text = "";
-        if (minutes > 0 && minutes < 10) { timerText1.text += string.Format("{0:0}:", minutes);  }
-        else if (minutes > 0) { timerText1.text += string.Format("{0:00}:", minutes); }
-        timerText1.text += string.Format("{0:00.000}", seconds);
+            timerText1.text = "";
+            if (minutes > 0 && minutes < 10) { timerText1.text += string.Format("{0:0}:", minutes); }
+            else if (minutes > 0) { timerText1.text += string.Format("{0:00}:", minutes); }
+            if (seconds > 0 && seconds < 10) { timerText1.text += string.Format("{0:0.00}", seconds); }
+            else { timerText1.text += string.Format("{0:00.00}", seconds); }
+        }
+        else { timerText1.text = "0.00"; }
     }
 }

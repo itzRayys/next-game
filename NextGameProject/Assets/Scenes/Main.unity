@@ -4393,7 +4393,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   dest: {fileID: 1719076611}
-  atEnd: 0
+  GMS: {fileID: 1481257414}
+  checkAtGoal: 0
+  dead: 0
 --- !u!1 &1481257413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4405,6 +4407,7 @@ GameObject:
   - component: {fileID: 1481257415}
   - component: {fileID: 1481257414}
   - component: {fileID: 1481257416}
+  - component: {fileID: 1481257417}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4480,7 +4483,26 @@ MonoBehaviour:
   - name: Level 1
     timer: 45
   - name: Level 2
-    timer: 30
+    timer: 650
+--- !u!114 &1481257417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481257413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff14590177feed4b9c401826febe1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 282385823}
+  PlayerPoint: {fileID: 376074183}
+  StartingTile: {fileID: 1572986561}
+  GoalTile: {fileID: 647705635}
+  PD: {fileID: 1041327250}
+  GMS: {fileID: 1481257414}
+  playerIsAtGoal: 0
 --- !u!1 &1481963428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4679,7 +4701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1719076607
 Transform:
   m_ObjectHideFlags: 0
@@ -5184,14 +5206,14 @@ MonoBehaviour:
   goalTile: {fileID: 647705635}
   destructableTilemap: {fileID: 1719076609}
   baseTile: {fileID: 11400000, guid: 8408e209dc6ad5e46a12adc84689844c, type: 2}
-  atGoal: 0
   area:
     m_Position: {x: -50, y: -50, z: 0}
     m_Size: {x: 100, y: 100, z: 1}
   blocksBefore: 0
   blocksAfter: 0
-  atEnd: 0
-  atEndBool: {fileID: 1041327250}
+  destroyTiles: 0
+  DoG: {fileID: 1481257417}
+  PD: {fileID: 1041327250}
 --- !u!1 &1774473693
 GameObject:
   m_ObjectHideFlags: 0
@@ -5366,7 +5388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1984459929
 Transform:
   m_ObjectHideFlags: 0
@@ -5398,14 +5420,14 @@ MonoBehaviour:
   goalTile: {fileID: 647705635}
   destructableTilemap: {fileID: 1984459933}
   baseTile: {fileID: 11400000, guid: 8408e209dc6ad5e46a12adc84689844c, type: 2}
-  atGoal: 0
   area:
     m_Position: {x: -50, y: -50, z: 0}
     m_Size: {x: 100, y: 100, z: 1}
   blocksBefore: 0
   blocksAfter: 0
-  atEnd: 0
-  atEndBool: {fileID: 1041327250}
+  destroyTiles: 0
+  DoG: {fileID: 1481257417}
+  PD: {fileID: 1041327250}
 --- !u!19719996 &1984459931
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5648,15 +5670,6 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-  - first: {x: 2, y: -1, z: 0}
-    second:
-      m_TileIndex: 26
-      m_TileSpriteIndex: 26
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
   - first: {x: -7, y: 0, z: 0}
     second:
       m_TileIndex: 26
@@ -5675,7 +5688,16 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-  - first: {x: 2, y: 0, z: 0}
+  - first: {x: 0, y: 0, z: 0}
+    second:
+      m_TileIndex: 26
+      m_TileSpriteIndex: 26
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 1
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: 1, y: 0, z: 0}
     second:
       m_TileIndex: 26
       m_TileSpriteIndex: 26
@@ -5739,15 +5761,6 @@ Tilemap:
       m_TileFlags: 1
       m_ColliderType: 1
   - first: {x: 1, y: 1, z: 0}
-    second:
-      m_TileIndex: 26
-      m_TileSpriteIndex: 26
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 2, y: 1, z: 0}
     second:
       m_TileIndex: 26
       m_TileSpriteIndex: 26
@@ -5828,7 +5841,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 87aadbdbd1b70a2429b1e63adc222d9b, type: 2}
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data: {fileID: 11400000, guid: 8408e209dc6ad5e46a12adc84689844c, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -5884,11 +5897,11 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -8611528506762651337, guid: 61cc2c2d97530b64c8758ac28aa9a73c,
       type: 3}
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data: {fileID: 3940527294428994050, guid: 61cc2c2d97530b64c8758ac28aa9a73c,
       type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 33
+  - m_RefCount: 32
     m_Data:
       e00: 1
       e01: 0
@@ -5909,7 +5922,7 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 1
     m_Data: {r: 1, g: 0.6, b: 1, a: 1}
-  - m_RefCount: 32
+  - m_RefCount: 31
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -7,18 +7,20 @@ public class Destructable : MonoBehaviour
     public Transform playerPos;
     public Transform playerPoint;
     public Transform goalTile;
-    private Vector3 setTile;
     public Tilemap destructableTilemap;
+
+    private Vector3 setTile;
     public Tile baseTile;
-    public bool atGoal = false;
     private string currentTile;
 
     public BoundsInt area;
     public int blocksBefore;
     public int blocksAfter;
-    public bool atEnd = false;
 
-    public PlayerDeath atEndBool;
+    [HideInInspector]
+    public bool destroyTiles;
+    public DeadorGoal DoG;
+    public PlayerDeath PD;
 
     private void Start()
     {
@@ -33,19 +35,15 @@ public class Destructable : MonoBehaviour
     {
         if (Vector3.Distance(playerPos.transform.position, playerPoint.transform.position) <= 0.3f)
         {
-            if (Vector3.Distance(playerPos.transform.position, goalTile.transform.position) <= 0.3f)
+            if (!DoG.playerIsAtGoal)
             {
-                atGoal = true;
-                atEndBool.atEnd = true;
-            }
-            else
-            {
-                atGoal = false;
+                destroyTiles = true;
                 setTile = playerPos.transform.position;
                 currentTile = destructableTilemap.GetTile(destructableTilemap.WorldToCell(setTile)).ToString();
             }
+            else { destroyTiles = false;  }
         }
-        if (!atGoal)
+        if (destroyTiles)
         {
             if (currentTile == "TempTilemap_32 (UnityEngine.Tilemaps.Tile)")
             {
@@ -66,16 +64,6 @@ public class Destructable : MonoBehaviour
                         destructableTilemap.SetTile(destructableTilemap.WorldToCell(setTile), baseTile);
                     }
                 }
-            }
-        }
-        else
-        {
-            if (!atEnd)
-            {
-                blocksAfter = countBlocks(blocksAfter);
-                print(blocksAfter);
-                atEnd = true;
-                Debug.Log("At Goal!");
             }
         }
     }

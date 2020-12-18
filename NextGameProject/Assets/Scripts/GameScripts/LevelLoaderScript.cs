@@ -28,12 +28,26 @@ public class LevelLoaderScript : MonoBehaviour
     public TimerClass[] TimerValue;
     private IEnumerator TimerStart;
 
+    private bool isTimerGoing;
+    private string tempTime;
 
     private void Start()
     {
         TimerStart = GMS.Timer.Timer1();
         currentLevel = "Tilemap_Level_1";
         LoadLevel();
+    }
+
+    private void LateUpdate()
+    {
+        if (!isTimerGoing)
+        {
+            if (Math.Abs(Input.GetAxisRaw("Vertical")) == 1 || Math.Abs(Input.GetAxisRaw("Horizontal")) == 1)
+            {
+                StartTime();
+                isTimerGoing = true;
+            }
+        }
     }
 
     public void LoadLevel()
@@ -64,6 +78,28 @@ public class LevelLoaderScript : MonoBehaviour
 
         nextLevelTimerValue = TimerValue[levelNumber].timer;
         GMS.Timer.startTime = nextLevelTimerValue;
+        FormatText();
+        GMS.Timer.timerText1.text = tempTime;
+    }
+
+    public void StartTime()
+    {
         GMS.Timer.StartCoroutine(TimerStart);
+    }
+
+    private void FormatText()
+    {
+        if (nextLevelTimerValue > 0)
+        {
+            int minutes = (int)(nextLevelTimerValue / 60) % 60;
+            float seconds = (float)(nextLevelTimerValue % 60);
+
+            tempTime = "";
+            if (minutes > 0 && minutes < 10) { tempTime += string.Format("{0:0}:", minutes); }
+            else if (minutes > 0) { tempTime += string.Format("{0:00}:", minutes); }
+            if (seconds > 0 && seconds < 10) { tempTime += string.Format("{0:0.00}", seconds); }
+            else { tempTime += string.Format("{0:00.00}", seconds); }
+        }
+        else { tempTime = "0.00"; }
     }
 }
