@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         movePoint.parent = null;
-        playerToStart();
-        startPoint.GetComponent<Renderer>().enabled = false;
     }
     void Update()
     {
@@ -43,5 +41,6 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = startPoint.position;
         movePoint.position = startPoint.position;
+        startPoint.GetComponent<Renderer>().enabled = false;
     }
 }

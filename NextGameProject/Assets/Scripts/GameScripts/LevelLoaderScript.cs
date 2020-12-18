@@ -8,15 +8,15 @@ public class LevelLoaderScript : MonoBehaviour
 {
 
     private string currentLevel;
-    private string nextLevel;
     private int levelNumber;
     public GameObject nextLevelGO;
     public GameObject prevLevelGO;
     public GameManagerScript GMS;
+    public PlayerController PC;
 
     private Vector3 nextLevelStartCoord;
     private Vector3 nextLevelEndCoord;
-
+    private float nextLevelTimerValue;
 
     [Header("Start Coordinates")]
     public StartCoordsClass[] StartCoords;
@@ -24,11 +24,14 @@ public class LevelLoaderScript : MonoBehaviour
     [Header("End Coordinates")]
     public EndCoordsClass[] EndCoords;
 
-
+    [Header("Timer")]
+    public TimerClass[] TimerValue;
+    private IEnumerator TimerStart;
 
 
     private void Start()
     {
+        TimerStart = GMS.Timer.Timer1();
         currentLevel = "Tilemap_Level_1";
         LoadLevel();
     }
@@ -48,7 +51,6 @@ public class LevelLoaderScript : MonoBehaviour
         prevLevelGO = GMS.Levels[levelNumber - 1].GameObject;
         prevLevelGO.SetActive(false);
 
-        nextLevel = GMS.Levels[levelNumber].GameObject.ToString();
         nextLevelGO = GMS.Levels[levelNumber].GameObject;
         nextLevelGO.SetActive(true);
 
@@ -57,5 +59,11 @@ public class LevelLoaderScript : MonoBehaviour
 
         nextLevelEndCoord = EndCoords[levelNumber].coords;
         GMS.Goal.transform.position = nextLevelEndCoord;
+
+        PC.playerToStart();
+
+        nextLevelTimerValue = TimerValue[levelNumber].timer;
+        GMS.Timer.startTime = nextLevelTimerValue;
+        GMS.Timer.StartCoroutine(TimerStart);
     }
 }

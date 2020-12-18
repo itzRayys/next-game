@@ -9,6 +9,7 @@ public class FollowPlayer : MonoBehaviour
 
     private void LateUpdate()
     {
+        /*
         // Hold to zoom out
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -18,9 +19,10 @@ public class FollowPlayer : MonoBehaviour
         {
             GetComponent<Camera>().orthographicSize = 7;
         }
+        */
+
 
         //Toggle zoom out
-        /*
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if(GetComponent<Camera>().orthographicSize == 7)
@@ -32,7 +34,6 @@ public class FollowPlayer : MonoBehaviour
                 GetComponent<Camera>().orthographicSize = 7;
             }
         }
-        */
 
 
         transform.position = player.position + offset;

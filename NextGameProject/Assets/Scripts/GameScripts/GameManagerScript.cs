@@ -16,6 +16,9 @@ public class GameManagerScript : MonoBehaviour
     public GameObject startPoint;
     public GameObject Goal;
 
+    [Header("Timer")]
+    public TimerScript Timer;
+
     [Header("Levels")]
     public LevelsClass[] Levels;
 
