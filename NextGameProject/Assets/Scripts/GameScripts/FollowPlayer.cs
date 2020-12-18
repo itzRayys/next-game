@@ -16,20 +16,20 @@ public class FollowPlayer : MonoBehaviour
         }
         else
         {
-            GetComponent<Camera>().orthographicSize = 5;
+            GetComponent<Camera>().orthographicSize = 7;
         }
 
         //Toggle zoom out
         /*
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if(GetComponent<Camera>().orthographicSize == 5)
+            if(GetComponent<Camera>().orthographicSize == 7)
             {
                 GetComponent<Camera>().orthographicSize = zoomSize;
             }
             else
             {
-                GetComponent<Camera>().orthographicSize = 5;
+                GetComponent<Camera>().orthographicSize = 7;
             }
         }
         */

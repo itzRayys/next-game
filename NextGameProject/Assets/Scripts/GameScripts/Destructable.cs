@@ -16,23 +16,17 @@ public class Destructable : MonoBehaviour
     public BoundsInt area;
     public int blocksBefore;
     public int blocksAfter;
-    private bool atEnd = false;
+    public bool atEnd = false;
 
+    public PlayerDeath atEndBool;
 
     private void Start()
     {
         destructableTilemap = GetComponent<Tilemap>();
 
-        TileBase[] tileArray = destructableTilemap.GetTilesBlock(area);
-        for (int index = 0; index < tileArray.Length; index++)
-        {
-            if (tileArray[index] != null)
-            {
-                blocksBefore++;
-            }
-        }
-        blocksBefore -= 1;
+        blocksBefore = countBlocks(blocksBefore);
         print(blocksBefore);
+        
     }
 
     private void LateUpdate()
@@ -42,6 +36,7 @@ public class Destructable : MonoBehaviour
             if (Vector3.Distance(playerPos.transform.position, goalTile.transform.position) <= 0.3f)
             {
                 atGoal = true;
+                atEndBool.atEnd = true;
             }
             else
             {
@@ -77,19 +72,23 @@ public class Destructable : MonoBehaviour
         {
             if (!atEnd)
             {
-                TileBase[] tileArray = destructableTilemap.GetTilesBlock(area);
-                for (int index = 0; index < tileArray.Length; index++)
-                {
-                    if (tileArray[index] != null)
-                    {
-                        blocksAfter++;
-                    }
-                }
-                blocksAfter -= 1;
+                blocksAfter = countBlocks(blocksAfter);
                 print(blocksAfter);
                 atEnd = true;
                 Debug.Log("At Goal!");
             }
         }
+    }
+    public int countBlocks(int blocks)
+    {
+        TileBase[] tileArray = destructableTilemap.GetTilesBlock(area);
+        for (int index = 0; index < tileArray.Length; index++)
+        {
+            if (tileArray[index] != null)
+            {
+                blocks++;
+            }
+        }
+        return blocks -= 1;
     }
 }

@@ -13,10 +13,11 @@ public class GameManagerScript : MonoBehaviour
     public GameObject Camera;
 
     [Header("Tiles")]
-    public GameObject destructableTilemap;
     public GameObject startPoint;
     public GameObject Goal;
 
+    [Header("Levels")]
+    public LevelsClass[] Levels;
 
 
 }
