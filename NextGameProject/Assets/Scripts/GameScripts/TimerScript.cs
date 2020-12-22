@@ -7,7 +7,6 @@ using System;
 
 public class TimerScript : MonoBehaviour
 {
-    [HideInInspector]
     public float startTime;
     public TextMeshProUGUI timerText1;
 

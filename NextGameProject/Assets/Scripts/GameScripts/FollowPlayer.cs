@@ -7,33 +7,39 @@ public class FollowPlayer : MonoBehaviour
     public Vector3 offset;
     public float zoomSize;
 
+    public GameManagerScript GMS;
+
     private void LateUpdate()
     {
-        /*
-        // Hold to zoom out
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (!GMS.PMS.isPaused)
         {
-            GetComponent<Camera>().orthographicSize = zoomSize;
-        }
-        else
-        {
-            GetComponent<Camera>().orthographicSize = 7;
-        }
-        */
+            /*
+                    // Hold to zoom out
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        GetComponent<Camera>().orthographicSize = zoomSize;
+                    }
+                    else
+                    {
+                        GetComponent<Camera>().orthographicSize = 7;
+                    }
+                    */
 
 
-        //Toggle zoom out
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            if(GetComponent<Camera>().orthographicSize == 7)
+            //Toggle zoom out
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                GetComponent<Camera>().orthographicSize = zoomSize;
-            }
-            else
-            {
-                GetComponent<Camera>().orthographicSize = 7;
+                if (GetComponent<Camera>().orthographicSize == 7)
+                {
+                    GetComponent<Camera>().orthographicSize = zoomSize;
+                }
+                else
+                {
+                    GetComponent<Camera>().orthographicSize = 7;
+                }
             }
         }
+        
 
 
         transform.position = player.position + offset;

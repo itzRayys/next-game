@@ -6,14 +6,12 @@ public class DeadorGoal : MonoBehaviour
 {
     public Transform Player;
     public Transform PlayerPoint;
-    public Transform StartingTile;
     public Transform GoalTile;
 
-    public PlayerDeath PD;
     public GameManagerScript GMS;
+    public GameObject levelCompleteUI;
 
     public bool playerIsAtGoal = false;
-    private bool playerIsAtGoal2 = false;
 
 
     private void LateUpdate()
@@ -22,26 +20,22 @@ public class DeadorGoal : MonoBehaviour
         {
             if (Vector3.Distance(Player.transform.position, GoalTile.transform.position) <= 0.3f)
             {
-                playerIsAtGoal = true;
-                PD.checkAtGoal = true;
-
-                if (!playerIsAtGoal2)
+                if (!playerIsAtGoal)
                 {
-                    playerIsAtGoal2 = true;
-                    Debug.Log("At Goal!");
+                    playerIsAtGoal = true;
                     reachedGoal();
                 }
-            }
-            else
-            {
-                playerIsAtGoal = false;
             }
         }
     }
 
     public void reachedGoal()
     {
+        Time.timeScale = 0f;
+        levelCompleteUI.SetActive(true);
+        GMS.isPausable = false;
         Debug.Log("Player has reached the goal!");
         GMS.Timer.StopAllCoroutines();
+        GMS.LevelCompleteScreen.GetComponent<LevelCompleteScript>().Invoke("levelComplete", 0.1f);
     }
 }

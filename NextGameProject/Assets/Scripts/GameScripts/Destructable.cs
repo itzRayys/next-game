@@ -18,17 +18,12 @@ public class Destructable : MonoBehaviour
     public int blocksAfter;
 
     [HideInInspector]
-    public bool destroyTiles;
     public DeadorGoal DoG;
     public PlayerDeath PD;
 
     private void Start()
     {
         destructableTilemap = GetComponent<Tilemap>();
-
-        blocksBefore = countBlocks(blocksBefore);
-        print(blocksBefore);
-        
     }
 
     private void LateUpdate()
@@ -37,13 +32,12 @@ public class Destructable : MonoBehaviour
         {
             if (!DoG.playerIsAtGoal)
             {
-                destroyTiles = true;
                 setTile = playerPos.transform.position;
                 currentTile = destructableTilemap.GetTile(destructableTilemap.WorldToCell(setTile)).ToString();
             }
-            else { destroyTiles = false;  }
         }
-        if (destroyTiles)
+
+        if (!DoG.playerIsAtGoal)
         {
             if (currentTile == "TempTilemap_32 (UnityEngine.Tilemaps.Tile)")
             {

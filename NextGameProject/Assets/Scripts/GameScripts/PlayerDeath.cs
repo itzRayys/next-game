@@ -6,10 +6,9 @@ public class PlayerDeath : MonoBehaviour
 {
     public Transform movePoint;
     public LayerMask whatAllowsMovement;
-    public Destructable dest;
     public GameManagerScript GMS;
 
-    public bool checkAtGoal = false;
+    public DeadorGoal DoG;
     public bool dead = false;
 
 
@@ -17,7 +16,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, movePoint.position) <= .01f)
         {
-            if (!checkAtGoal)
+            if (!DoG.playerIsAtGoal)
             {
                 if (!Physics2D.OverlapCircle(movePoint.position +
                     new Vector3(1f, 0f, 0f), .01f, whatAllowsMovement) &&
@@ -38,6 +37,7 @@ public class PlayerDeath : MonoBehaviour
     public void PlayerHasDied()
     {
         GMS.Timer.StopAllCoroutines();
+        GMS.isPausable = false;
         Debug.Log("Player has died!");
     }
 }
