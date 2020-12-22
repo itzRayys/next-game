@@ -9,6 +9,7 @@ public class PauseMenuScript : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameManagerScript GMS;
 
+    //Pauses and unpauses game
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) && GMS.isPausable)
@@ -18,6 +19,7 @@ public class PauseMenuScript : MonoBehaviour
         }
     }
 
+    //Pause game code
     public void pauseGame()
     {
         pauseMenuUI.SetActive(true);
@@ -25,6 +27,7 @@ public class PauseMenuScript : MonoBehaviour
         isPaused = true;
     }
 
+    //Unpause game code
     public void unpauseGame()
     {
         pauseMenuUI.SetActive(false);

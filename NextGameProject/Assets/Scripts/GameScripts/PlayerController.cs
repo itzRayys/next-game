@@ -14,8 +14,11 @@ public class PlayerController : MonoBehaviour
     {
         movePoint.parent = null;
     }
+
+    //Script for tile-based movement
     void Update()
     {
+        //Moves player towards move point
         transform.position = Vector3.MoveTowards(
             transform.position, 
             movePoint.position, 
@@ -23,10 +26,13 @@ public class PlayerController : MonoBehaviour
 
         if (!GMS.PMS.isPaused)
         {
+            //Only executes when player finished moving
             if (Vector3.Distance(transform.position, movePoint.position) <= .01f)
             {
+                //Checks if player is trying to move horizontal or vertical
                 if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1)
                 {
+                    //Checks if the tile the player is trying to move to is a tile that you can move onto
                     if (Physics2D.OverlapCircle(movePoint.position +
                         new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .3f, whatAllowsMovement))
 
@@ -34,6 +40,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1)
                 {
+                    //Checks if the tile the player is trying to move to is a tile that you can move onto
                     if (Physics2D.OverlapCircle(movePoint.position +
                         new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .3f, whatAllowsMovement))
 
@@ -42,6 +49,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    //Sets player to starting point and hides starting tile
     public void playerToStart()
     {
         transform.position = startPoint.position;

@@ -11,6 +11,7 @@ public class FollowPlayer : MonoBehaviour
 
     private void LateUpdate()
     {
+        // Checks if game is paused
         if (!GMS.PMS.isPaused)
         {
             /*
@@ -41,7 +42,7 @@ public class FollowPlayer : MonoBehaviour
         }
         
 
-
+        // Moves camera to follow the player, offset prevents camera from going first person
         transform.position = player.position + offset;
     }
 

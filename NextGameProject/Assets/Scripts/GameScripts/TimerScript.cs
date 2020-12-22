@@ -10,9 +10,9 @@ public class TimerScript : MonoBehaviour
     public float startTime;
     public TextMeshProUGUI timerText1;
 
-    private float timer;
+    public float timer;
 
-
+    //Timer script
     public IEnumerator Timer1()
     {
         timer = startTime;
@@ -28,6 +28,7 @@ public class TimerScript : MonoBehaviour
         while(timer > 0);
     }
 
+    //Formats time
     private void FormatText1()
     {
         if (timer > 0)
