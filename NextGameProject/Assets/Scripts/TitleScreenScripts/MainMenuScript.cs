@@ -8,8 +8,21 @@ public class MainMenuScript : MonoBehaviour
     //Loads first level
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (PlayerPrefs.GetInt("LevelToLoad") > 1)
+        {
+            SceneManager.LoadScene(PlayerPrefs.GetInt("LevelToLoad"));
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
         Debug.Log("Play Game");
+    }
+
+    public void NewGame()
+    {
+        PlayerPrefs.SetInt("LevelToLoad", 1);
+        SceneManager.LoadScene(1);
     }
 
     //Quits game

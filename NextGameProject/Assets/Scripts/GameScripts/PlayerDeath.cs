@@ -15,7 +15,7 @@ public class PlayerDeath : MonoBehaviour
     public bool dead = false;
 
 
-    private void LateUpdate()
+    private void Update()
     {
         //Checks when player can't move anywhere and sets player to dead as long as player is not at goal
         if (Vector3.Distance(transform.position, movePoint.position) <= .01f)
@@ -37,14 +37,13 @@ public class PlayerDeath : MonoBehaviour
                         dead = true;
                     }
                 }
-
-                //Kills player when time is up
-                if (!dead && GMS.timeUp)
-                {
-                    PlayerHasDied();
-                    dead = true;
-                }
             }
+        }
+        //Kills player when time is up
+        if (!dead && GMS.timeUp)
+        {
+            PlayerHasDied();
+            dead = true;
         }
     }
 
